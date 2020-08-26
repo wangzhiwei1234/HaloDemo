@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion rootProject.ext.complieSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.halo.halodemo"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        flavorDimensions "default"
+        multiDexEnabled = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                outputFileName = "${applicationId}v${defaultConfig.versionName}.apk"
+            }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    //全局配置文件
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.2'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
+    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'org.greenrobot:greendao:3.3.0'
+    implementation 'io.github.yuweiguocn:GreenDaoUpgradeHelper:v2.2.1'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    implementation 'com.blankj:utilcode:1.25.9'
+    implementation 'com.github.tbruyelle:rxpermissions:0.12'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.7.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.2'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.18'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //底部导航
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
+    //图片压缩
+    implementation 'top.zibin:Luban:1.1.8'
+    //顶部导航
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
+    //友盟统计
+    implementation  'com.umeng.umsdk:common:9.1.0'
+    implementation  'com.umeng.umsdk:asms:1.1.3'
+    implementation 'com.umeng.umsdk:crash:0.0.4'
+    //OAID目前为目前国内市场主流的Android Q设备标识
+    //如您不在U-App的集成中加入OAID库，可能会导致U-App面向Android Q系统的新增、启动、活跃、留存等指标减少
+    implementation  'com.umeng.umsdk:oaid_lenovo:1.0.0'
+    implementation  'com.umeng.umsdk:oaid_mi:1.0.0'
+    implementation  'com.umeng.umsdk:oaid_oppo:1.0.4'
+    implementation  'com.umeng.umsdk:oaid_vivo:1.0.0.1'
+}
